@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "Training Center API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5217"
+    }
+  ],
+  "item": [
+    {
+      "name": "Rooms",
+      "item": [
+        {
+          "name": "Get all rooms",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/rooms"
+          }
+        },
+        {
+          "name": "Get room by id",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/rooms/1"
+          }
+        },
+        {
+          "name": "Filter rooms",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/rooms?minCapacity=20&hasProjector=true&activeOnly=true"
+          }
+        },
+        {
+          "name": "Create room",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Lab 404\",\n  \"buildingCode\": \"D\",\n  \"floor\": 4,\n  \"capacity\": 30,\n  \"hasProjector\": true,\n  \"isActive\": true\n}"
+            },
+            "url": "{{base_url}}/api/rooms"
+          }
+        },
+        {
+          "name": "Update room",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": 1,\n  \"name\": \"Lab 101 Updated\",\n  \"buildingCode\": \"A\",\n  \"floor\": 1,\n  \"capacity\": 25,\n  \"hasProjector\": true,\n  \"isActive\": true\n}"
+            },
+            "url": "{{base_url}}/api/rooms/1"
+          }
+        },
+        {
+          "name": "Delete room",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/rooms/6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservations",
+      "item": [
+        {
+          "name": "Filter reservations",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/reservations?date=2026-05-10&status=confirmed&roomId=2"
+          }
+        },
+        {
+          "name": "Create reservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomId\": 2,\n  \"organizerName\": \"Adam Kowalski\",\n  \"topic\": \"Warsztaty ASP.NET Core\",\n  \"date\": \"2026-05-10\",\n  \"startTime\": \"13:00:00\",\n  \"endTime\": \"14:30:00\",\n  \"status\": \"confirmed\"\n}"
+            },
+            "url": "{{base_url}}/api/reservations"
+          }
+        },
+        {
+          "name": "Create conflicting reservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roomId\": 2,\n  \"organizerName\": \"Test Konflikt\",\n  \"topic\": \"Nakladajaca sie rezerwacja\",\n  \"date\": \"2026-05-10\",\n  \"startTime\": \"11:00:00\",\n  \"endTime\": \"13:00:00\",\n  \"status\": \"confirmed\"\n}"
+            },
+            "url": "{{base_url}}/api/reservations"
+          }
+        },
+        {
+          "name": "Get not existing room",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/rooms/999"
+          }
+        }
+      ]
+    }
+  ]
+}
